@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 
 import org.junit.Test;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 public class EnviaDadosTest {
