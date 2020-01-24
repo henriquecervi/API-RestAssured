@@ -37,5 +37,21 @@ public class FileTest {
 			
 		;
 	}
-
+	
+	
+	@Test
+	public void naoDeveFazerUploadDeArquivoGrande() {
+		given()
+			.log().all()
+			.multiPart("arquivo", "src/main/resources/HenriqueCerviCutri_2.docx")
+		.when()
+			.post("http://restapi.wcaquino.me/upload")
+		.then()
+			.log().all()
+			.time(lessThan(6000L))
+			.statusCode(413)
+			
+		;
+		
+	}
 }
