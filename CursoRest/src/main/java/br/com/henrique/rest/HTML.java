@@ -27,5 +27,26 @@ public class HTML {
 		;
 		
 	}
+	
+	@Test
+	public void deveFazerBuscasComXpathEmHtml () {
+		
+		given()
+			.log().all()
+		.when()
+			.get("https://restapi.wcaquino.me/v2/users?format=clean")
+		.then()
+			.body(hasXPath("count(//table/tr)", is("4")))
+			.body(hasXPath("//td[text() = '2']/../td[2]", is("Maria Joaquina")))
+		/*
+		 *  utilizamos o // para poder achar a "linha" toda, entre [] para acharmos o
+		 * que queremos, // no caso [text () = '2'] que seria o valor do ID, depois
+		 * utilizamos /.. para subir nível, // e barra /td novamente e a linha esperada.
+		 * comentário da linha 40.
+		 */		
+			
+		;
+		
+	}
 
 }
