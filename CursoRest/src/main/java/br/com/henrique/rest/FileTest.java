@@ -70,13 +70,16 @@ public class FileTest {
 		.then()
 			.statusCode(200)
 			.extract().asByteArray()
+			
 		;
 		
 		File imagem = new File("src/main/resources/file.jpg");
 		OutputStream out = new FileOutputStream(imagem);
 		out.write(image);
 		out.close();
+	
 		
 		Assert.assertThat(imagem.length(), is(lessThan(100000L)));
+		Assert.assertThat(imagem.getName(), is("file.jpg"));
 	}
 }
