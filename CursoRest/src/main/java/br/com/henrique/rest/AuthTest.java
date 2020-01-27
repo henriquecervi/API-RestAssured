@@ -43,5 +43,48 @@ public class AuthTest {
 		;
 	}
 	
+	@Test //forma de utilizar a senha basica quando se tem popUP, direto na URL
+	public void deveFazerAutenticacaoBasica() {
+		
+		given()
+			.log().all()
+		.when()
+			.get("https://admin:senha@restapi.wcaquino.me/basicauth")
+		.then()
+			.log().all()
+			.statusCode(200)
+		;
+		
+	}
+	
+	@Test //desta forma utilizamos o auth.basic com usuário e senha
+	public void deveFazerAutenticacaoBasica2() {
+		given()
+			.log().all()
+			.auth().basic("admin", "senha")
+		.when()
+			.get("https://restapi.wcaquino.me/basicauth")
+		.then()
+			.log().all()
+			.statusCode(200)
+			.body("status", is("logado"))
+		;
+	}
+	
+	@Test
+	public void deveFazerAutenticacaoBasicaChallenge() {
+		given()
+			.log().all()
+			.auth().preemptive().basic("admin", "senha")
+		.when()
+			.get("https://restapi.wcaquino.me/basicauth2")
+		.then()
+			.log().all()
+			.statusCode(200)
+			.body("status", is("logado"))
+		;
+		
+	}
+	
 
 }
