@@ -29,7 +29,7 @@
          "title": "The Name Schema",
          "default": "",
          "examples": [
-           "João da Silva"
+           "Joao da Silva"
          ],
          "pattern": "^(.*)$"
        },
