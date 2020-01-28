@@ -97,8 +97,8 @@ public class AuthTest {
 	@Test
 	public void deveFazerAutenticacaoComTokenJWT () {
 		
-		Map<String, String> login = new HashMap<String, String>();
-		login.put("email", "henrique@henrique");
+		Map<String, String> login = new HashMap<>();
+		login.put("email", "wagner@aquino");
 		login.put("senha", "123456");		
 	
 		// login na API
@@ -119,11 +119,14 @@ public class AuthTest {
 	
 	// obter contas
 		given()
+			.header("Authorization", "JWT " + token)
+			.body("{\"nome\": \"conta henrique\" }")
 			.log().all()
 		.when()
-			.get("http://barrigarest.wcaquino.me/contas")
+			.post("http://barrigarest.wcaquino.me/contas")
 		.then()
 			.log().all()
+			.statusCode(201)
 		;
 		
 			
@@ -134,11 +137,11 @@ public class AuthTest {
 		
 		String cookie = given()
 			.log().all()
-			.formParam("email", "henrique@henrique")
+			.formParam("email", "wagner@aquino")
 			.formParam("senha", "123456")
 			.contentType(ContentType.URLENC.withCharset("UTF-8"))
 		.when()
-			.post("https://srbarriga.herokuapp.com/logar")
+			.post("http://barrigarest.wcaquino.me/signin")
 		.then()
 			.log().all()
 			.statusCode(200)
@@ -155,11 +158,11 @@ public class AuthTest {
 			.log().all()
 			.cookie("connect.sid", cookie)
 		.when()
-			.get("http://seubarriga.wcaquino.me/contas")
+			.post("http://seubarriga.wcaquino.me/contas")
 		.then()
 			.log().all()
 			.statusCode(200)
-			.body("html.body.table.tbody.tr[0].td[0]", is("Muitas Contas"))
+			.body("html.body.table.tbody.tr[0].td[0]", is("Muitas Contas")) // verificar
 			.extract().body().asString();
 		;
 		
