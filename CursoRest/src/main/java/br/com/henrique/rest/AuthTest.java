@@ -98,7 +98,7 @@ public class AuthTest {
 	public void deveFazerAutenticacaoComTokenJWT () {
 		
 		Map<String, String> login = new HashMap<>();
-		login.put("email", "wagner@aquino");
+		login.put("email", "henrique@henrique");
 		login.put("senha", "123456");		
 	
 		// login na API
@@ -120,7 +120,7 @@ public class AuthTest {
 	// obter contas
 		given()
 			.header("Authorization", "JWT " + token)
-			.body("{\"nome\": \"conta henrique\" }")
+			.body("{\"nome\": \"Conta Henrique\" }")
 			.log().all()
 		.when()
 			.post("http://barrigarest.wcaquino.me/contas")
@@ -137,7 +137,7 @@ public class AuthTest {
 		
 		String cookie = given()
 			.log().all()
-			.formParam("email", "wagner@aquino")
+			.formParam("email", "henrique@henrique")
 			.formParam("senha", "123456")
 			.contentType(ContentType.URLENC.withCharset("UTF-8"))
 		.when()
@@ -162,7 +162,7 @@ public class AuthTest {
 		.then()
 			.log().all()
 			.statusCode(200)
-			.body("html.body.table.tbody.tr[0].td[0]", is("Muitas Contas")) // verificar
+			.body("html.body.table.tbody.tr[0].td[0]", is("Conta Henrique")) // verificar
 			.extract().body().asString();
 		;
 		
